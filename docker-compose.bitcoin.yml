@@ -1,0 +1,70 @@
+version: "3.8"
+services:
+  bitcoin-core:
+    container_name: bitcoind-mainnet
+    volumes:
+      - bitcoin_mainnet:/home/bitcoin/.bitcoin
+    expose:
+      - 8332
+    ports:
+      - 8333:8333
+    environment:
+      - BITCOIN_CHAIN=main
+
+  core-lightning:
+    container_name: lightningd-mainnet
+    volumes:
+      - lightning_mainnet:/home/lightning/.lightning
+    command:
+      - --conf=/home/lightning/.lightning/config
+      - --bitcoin-rpcconnect=bitcoind
+      - --log-file=- # stdout
+      - --log-file=/home/lightning/.lightning/mainnet/lightning.log
+    expose:
+      - 19846
+    ports:
+      - 19846:19846
+      - 7701:7701
+    environment:
+      - VLS_NETWORK=mainnet
+      - BITCOIND_RPC_URL=http://rpcuser:VLSsigner1@bitcoind:8332
+
+  txoo:
+    container_name: txood-mainnet
+    command:
+      - --no-checkpoint
+    volumes:
+      - txoo_mainnet:/root/.txoo/
+      - bitcoin_mainnet:/root/.bitcoin/
+    environment:
+      - BITCOIN_NETWORK=bitcoin
+      - BITCOIND_RPC_URL=http://rpcuser:VLSsigner1@bitcoind:8332
+
+  txoo-server:
+    container_name: txoo-server-mainnet
+    volumes:
+      - type: volume
+        source: txoo_mainnet
+        target: /usr/share/nginx/html
+        volume:
+          subpath: mainnet/public
+
+  vls:
+    container_name: vlsd-mainnet
+    volumes:
+      - vls_mainnet:/home/vls/.lightning-signer
+    environment:
+      - VLS_NETWORK=bitcoin
+      - BITCOIND_RPC_URL=http://rpcuser:VLSsigner1@bitcoind:8332
+
+  lss:
+    container_name: lss-mainnet
+    volumes:
+      - lss_mainnet:/home/lss/.lss
+
+volumes:
+  bitcoin_mainnet:
+  lightning_mainnet:
+  txoo_mainnet:
+  vls_mainnet:
+  lss_mainnet:
