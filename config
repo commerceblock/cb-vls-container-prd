@@ -1,0 +1,14 @@
+network=mainnet
+alias=CommerceBlock
+bitcoin-rpcuser=rpcuser
+bitcoin-rpcpassword=VLSsigner1
+bitcoin-rpcport=8332
+log-level=info
+important-plugin=/usr/bin/clboss
+clboss-auto-close=true
+bind-addr=0.0.0.0:19735
+plugin=/usr/local/src/plugins/summars
+plugin=/usr/local/src/plugins/monitor.py
+subdaemon=hsmd:remote_hsmd_socket
+experimental-anchors
+clnrest-port=3010
