@@ -1,0 +1,58 @@
+version: "3.8"
+services:
+  lss:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - LSS_REPO
+        - LSS_GIT_HASH
+    image: lss:${IMAGE_TAG:-latest}
+    container_name: lss-mainnet
+    ports:
+      - 55551:55551
+    expose:
+      - 55551
+    networks:
+      - lightning
+    volumes:
+      - lss_data:/home/lss/.lss
+    environment:
+      - LSS_DATABASE=${LSS_DATABASE:-sled}
+      - PG_HOST
+      - PG_USER
+      - PG_PASS
+      - PG_DB
+  vls:
+    build:
+      context: ../vlsd
+      dockerfile: Dockerfile
+      args:
+        - VLS_GIT_HASH
+    image: vlsd
+    container_name: vlsd-mainnet
+    command: 
+      --connect=http://core-lightning:7701
+      --lss=http://lss:55551
+    networks:
+      - lightning
+    volumes:
+      - vls_data:/home/vls/.lightning-signer
+    environment:
+      - BITCOIND_RPC_URL=$BITCOIND_RPC_URL
+      - VLS_NETWORK=bitcoin
+    depends_on:
+      lss:
+        condition: service_healthy
+        required: false
+
+networks:
+  lightning:
+
+volumes:
+  vls_data:
+    name: vls_data
+    external: true
+  lss_data:
+    name: lss_data
+    external: true
