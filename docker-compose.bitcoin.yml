@@ -2,7 +2,7 @@ version: "3.8"
 services:
   bitcoin-core:
     container_name: bitcoind-mainnet
-    restart: unless-stopped
+    restart: always
     volumes:
       - bitcoin_mainnet:/home/bitcoin/.bitcoin
     expose:
@@ -14,7 +14,7 @@ services:
 
   core-lightning:
     container_name: lightningd-mainnet
-    restart: unless-stopped
+    restart: always
     volumes:
       - lightning_mainnet:/home/lightning/.lightning
     command:
@@ -33,7 +33,7 @@ services:
 
   txoo:
     container_name: txood-mainnet
-    restart: unless-stopped
+    restart: always
     command:
       - --no-checkpoint
     volumes:
@@ -45,7 +45,7 @@ services:
 
   txoo-server:
     container_name: txoo-server-mainnet
-    restart: unless-stopped
+    restart: always
     volumes:
       - type: volume
         source: txoo_mainnet
@@ -55,7 +55,7 @@ services:
 
   vls:
     container_name: vlsd-mainnet
-    restart: unless-stopped
+    restart: always
     volumes:
       - vls_mainnet:/home/vls/.lightning-signer
     environment:
@@ -64,7 +64,7 @@ services:
 
   lss:
     container_name: lss-mainnet
-    restart: unless-stopped
+    restart: always
     volumes:
       - lss_mainnet:/home/lss/.lss
 
