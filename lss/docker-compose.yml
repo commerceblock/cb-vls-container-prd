@@ -8,7 +8,7 @@ services:
         - LSS_REPO
         - LSS_GIT_HASH
     image: lss:${IMAGE_TAG:-latest}
-    container_name: lss-mainnet
+    container_name: lss-test
     ports:
       - 55551:55551
     expose:
@@ -32,7 +32,7 @@ services:
         - VLS_GIT_HASH
         - TXOO_PUBLIC_KEY
     image: vlsd
-    container_name: vlsd-mainnet
+    container_name: vlsd-standalone
     command: 
       --connect=http://core-lightning:7701
       --lss=http://lss:55551
@@ -42,7 +42,7 @@ services:
       - vls_data:/home/vls/.lightning-signer
     environment:
       - BITCOIND_RPC_URL=$BITCOIND_RPC_URL
-      - VLS_NETWORK=bitcoin
+      - VLS_NETWORK=testnet
     depends_on:
       lss:
         condition: service_healthy
