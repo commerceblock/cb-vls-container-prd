@@ -1,4 +1,4 @@
-network=mainnet
+network=bitcoin
 alias=CommerceBlock
 bitcoin-rpcuser=rpcuser
 bitcoin-rpcpassword=VLSsigner1

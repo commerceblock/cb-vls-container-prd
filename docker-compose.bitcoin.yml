@@ -21,14 +21,14 @@ services:
       - --conf=/home/lightning/.lightning/config
       - --bitcoin-rpcconnect=bitcoind
       - --log-file=- # stdout
-      - --log-file=/home/lightning/.lightning/mainnet/lightning.log
+      - --log-file=/home/lightning/.lightning/bitcoin/lightning.log
     expose:
       - 19846
     ports:
       - 19846:19846
       - 17701:7701
     environment:
-      - VLS_NETWORK=mainnet
+      - VLS_NETWORK=bitcoin
       - BITCOIND_RPC_URL=http://rpcuser:VLSsigner1@bitcoind:8332
 
   txoo:
