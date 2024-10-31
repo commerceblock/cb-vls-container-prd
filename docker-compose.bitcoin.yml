@@ -51,7 +51,7 @@ services:
         source: txoo_mainnet
         target: /usr/share/nginx/html
         volume:
-          subpath: mainnet/public
+          subpath: bitcoin/public
 
   vls:
     container_name: vlsd-mainnet
