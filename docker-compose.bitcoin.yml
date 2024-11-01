@@ -23,9 +23,9 @@ services:
       - --log-file=- # stdout
       - --log-file=/home/lightning/.lightning/bitcoin/lightning.log
     expose:
-      - 19846
+      - 19735
     ports:
-      - 19846:19846
+      - 19735:19735
       - 17701:7701
     environment:
       - VLS_NETWORK=bitcoin
