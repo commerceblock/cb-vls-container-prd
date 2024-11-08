@@ -9,6 +9,7 @@ services:
         - LSS_GIT_HASH
     image: lss:${IMAGE_TAG:-latest}
     container_name: lss-test
+    restart: always
     ports:
       - 55551:55551
     expose:
@@ -33,6 +34,7 @@ services:
         - TXOO_PUBLIC_KEY
     image: vlsd
     container_name: vlsd-standalone
+    restart: always
     command: 
       --connect=http://core-lightning:7701
       --lss=http://lss:55551
