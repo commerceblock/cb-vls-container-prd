@@ -40,6 +40,7 @@ services:
       - lightning
     volumes:
       - vls_data:/home/vls/.lightning-signer
+      - /home/vls/.lightning-signer/bitcoin/node.seed:/home/vls/.lightning-signer/bitcoin/node.seed # Mounting node.seed file
     environment:
       - BITCOIND_RPC_URL=$BITCOIND_RPC_URL
       - VLS_NETWORK=bitcoin
