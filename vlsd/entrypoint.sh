@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-
+mkdir -p /home/vls/.lightning-signer/bitcoin/
 cp /node.seed /home/vls/.lightning-signer/bitcoin/
 cp /vlsd2.toml $VLSD_DATA/
 sed -i "1s/^/network = \"$VLS_NETWORK\"\n/" $VLSD_DATA/vlsd2.toml
